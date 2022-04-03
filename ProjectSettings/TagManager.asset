@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Cat
+  - PlayerVision
+  - EasyClean
+  - NormalClean
+  - HardClean
   layers:
   - Default
   - TransparentFX
@@ -47,4 +51,7 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Talk
+    uniqueID: 3513585055
     locked: 0

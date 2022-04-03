@@ -1,20 +1,27 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using DG.Tweening;
 
 namespace VomitCats
-{
-    [RequireComponent(typeof(SpriteRenderer))]
-    public class Vomit : MonoBehaviour
+{   
+    public class Vomit : MonoBehaviour, IPointerClickHandler
     {
         #region FIELDS INSPECTOR
         [Tooltip("Время разложения")]
         [SerializeField, Range(0, 60)] private float _decayDuration;
+
+        [Space(10)]
+        [SerializeField] private Transform _body;
         #endregion
 
         #region FIELDS PRIVATE
         private SpriteRenderer _spriteRenderer;
+
+        private bool _isSeePlayer = false;
+        private int _maxPollutionLevel;
+        private int _currentPollutionLevel;
         #endregion
 
         #region EVENTS
@@ -25,18 +32,77 @@ namespace VomitCats
         #region UNITY CALLBACKS
         private void Awake()
         {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _spriteRenderer = _body.GetComponent<SpriteRenderer>();
         }
 
         private void Start()
         {
             StartCoroutine(Decay(_decayDuration));
             _spriteRenderer.DOColor(Color.grey, _decayDuration);
+
+            _maxPollutionLevel = GetPollutionLevel();
+            _currentPollutionLevel = _maxPollutionLevel;
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.tag == "PlayerVision")
+            {
+                _isSeePlayer = true;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.tag == "PlayerVision")
+            {
+                _isSeePlayer = false;
+            }
         }
 
         private void OnDestroy()
         {
             _spriteRenderer.DOKill();
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (_isSeePlayer)
+            {
+                _currentPollutionLevel--;
+
+                float currentScale = (float)_currentPollutionLevel / _maxPollutionLevel;
+
+                _body.localScale = new Vector3(currentScale, currentScale, 1);
+
+                if(_currentPollutionLevel <= 0)
+                {
+                    Clear();
+                }
+            }
+        }
+        #endregion
+
+        #region METHODS PRIVATE
+        private int GetPollutionLevel()
+        {
+            var pollutionLevel = 5;
+
+            var collisions = Physics2D.OverlapPointAll(transform.position);
+            foreach (var collision in collisions)
+            {
+                switch (collision.tag)
+                {
+                    case "EasyClean":
+                        pollutionLevel = 3;
+                        break;
+                    case "HardClean":
+                        pollutionLevel = 8;                        
+                        break;
+                }
+            }
+
+            return pollutionLevel;
         }
         #endregion
 
@@ -60,6 +126,8 @@ namespace VomitCats
             }
 
             OnDecay?.Invoke(this);
+
+            GameManager.Instance.AddPollution(1);
 
             Destroy(gameObject);
         }

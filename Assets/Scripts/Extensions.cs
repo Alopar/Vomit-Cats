@@ -2,22 +2,34 @@ using UnityEngine;
 
 namespace VomitCats
 {
-    enum CatState
+    public enum CatState
     {
         Idle,
         Walk,
         Vomit
     }
 
-    enum CleanerState
+    public enum CleanerState
     {
         Idle,
         Walk
     }
 
-    struct BaseStats
+    public enum Language
+    {
+        Russian,
+        English
+    }
+
+    public struct BaseStats
     {
         public Vector3 scale;
         public Vector3 position;
+    }
+
+    interface IDrawSort
+    {
+        public float GetPositionY();
+        public void SetDrawOrder(int order);
     }
 }
