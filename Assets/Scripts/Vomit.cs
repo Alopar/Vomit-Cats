@@ -37,8 +37,7 @@ namespace VomitCats
 
         private void Start()
         {
-            StartCoroutine(Decay(_decayDuration));
-            _spriteRenderer.DOColor(Color.grey, _decayDuration);
+            StartCoroutine(Decay(_decayDuration));            
 
             _maxPollutionLevel = GetPollutionLevel();
             _currentPollutionLevel = _maxPollutionLevel;
@@ -75,6 +74,9 @@ namespace VomitCats
 
                 _body.localScale = new Vector3(currentScale, currentScale, 1);
 
+                AudioManager.Play("Clear");
+                VfxManager.Instance.PlayVFX(transform.position, "Poof");
+
                 if(_currentPollutionLevel <= 0)
                 {
                     Clear();
@@ -97,7 +99,7 @@ namespace VomitCats
                         pollutionLevel = 3;
                         break;
                     case "HardClean":
-                        pollutionLevel = 8;                        
+                        pollutionLevel = 10;
                         break;
                 }
             }
@@ -111,6 +113,8 @@ namespace VomitCats
         {
             OnClear?.Invoke(this);
 
+            VfxManager.Instance.PlayVFX(transform.position, "Firework");
+
             Destroy(gameObject);
         }
         #endregion
@@ -118,6 +122,8 @@ namespace VomitCats
         #region COROUTINES
         private IEnumerator Decay(float time)
         {
+            _spriteRenderer.DOColor(Color.black, _decayDuration);
+
             var timer = time;
             while(timer > 0)
             {

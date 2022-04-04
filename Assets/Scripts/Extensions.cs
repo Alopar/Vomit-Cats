@@ -2,6 +2,18 @@ using UnityEngine;
 
 namespace VomitCats
 {
+    public enum HorizontalOrientation
+    {
+        Left,
+        Right
+    }
+
+    public enum VerticalOrientation
+    {
+        Up,
+        Bottom
+    }
+
     public enum CatState
     {
         Idle,
@@ -31,5 +43,11 @@ namespace VomitCats
     {
         public float GetPositionY();
         public void SetDrawOrder(int order);
+    }
+
+    public static class GameSettings
+    {
+        public static Language CurrentLanguage = Language.English;
+        public static bool Mute = false;
     }
 }

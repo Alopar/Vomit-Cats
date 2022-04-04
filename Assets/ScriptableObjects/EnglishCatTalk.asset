@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33223b4194577aa49b4cd1dc6ba4776b, type: 3}
+  m_Name: EnglishCatTalk
+  m_EditorClassIdentifier: 
+  Language: 1
+  texts:
+  - Meow?
+  - Maaaaaaaaaaa!! I'm hungry!
+  - I want a mouse.
+  - I want a fish.
+  - It's nice!
+  - What is it? What's it?? No, nothing interesting.
+  - This doesn't belong here.
+  - Throw it out altogether!
+  - Sleep. Sleep. Sleeeep.
+  - Stretchies!
+  - Jump! Another one! I'm amazing!
+  - Bad. Bad-bad-bad!
+  - Noisy.
+  - What are they walking around here for?
+  - It's cold.
+  - It's hot.
+  - It's unclear. We need to find another place to rest.
+  - Lonely.
+  - Leave me alone!
+  - I don't like it at all!
+  - 'T=osn*Cp/(VU h) Jump! '
+  - 'y = x * tg Alfa o - g * x2 2 * V2 * cos 2Alfa... Rush! '
+  - 'Disgusting! '
+  - It's blowing here!
+  - Boring.
+  - What's that up there? Come on, come on!
+  - I want to play!
+  - "I want something\u2026"
+  - Why are we here?
+  - What is all this for?
+  - When is the food?
+  - It's too light!
